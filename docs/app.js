@@ -90,6 +90,11 @@
     var a = el("a", null, f.title);
     a.href = "fic/" + f.slug + ".html";
     h.appendChild(a);
+    if (window.Kudos && window.Kudos.has(f.slug)) {
+      var heart = el("span", "heart", "\u2665");
+      heart.title = "On your kudos list";
+      h.appendChild(heart);
+    }
     li.appendChild(h);
     li.appendChild(el("div", "by", "by " + f.author));
     if (multiFandom && f.fandoms.length) li.appendChild(el("div", "fandom", f.fandoms.join(", ")));
