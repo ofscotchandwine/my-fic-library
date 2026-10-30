@@ -8,34 +8,35 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar">
-  <a class="site" href="index.html">My Fic Library</a>
-  <button type="button" id="theme-toggle">Light mode</button>
+<header class="hero">
+  <div class="corner"><button type="button" class="pill" id="theme-toggle">Light mode</button></div>
+  <h1><a href="index.html">My Fic Library</a></h1>
+  <div class="rule"></div>
+  <p>28 fics archived</p>
+  <p>last updated October 30, 2026</p>
 </header>
 <main class="wrap">
-  <div class="controls">
-    <div class="row">
+  <details class="filters">
+    <summary>Filter &amp; search</summary>
+    <div class="controls">
       <input type="search" id="q" placeholder="Search titles, authors, tags, summaries" aria-label="Search">
+      <div class="row">
+        <select id="rating" aria-label="Rating"></select>
+        <select id="status" aria-label="Status"></select>
+        <select id="fandom" aria-label="Fandom"></select>
+      </div>
+      <div class="row"><button type="button" id="clear">Clear filters</button></div>
     </div>
-    <div class="row">
-      <select id="rating" aria-label="Rating"></select>
-      <select id="status" aria-label="Status"></select>
-      <select id="fandom" aria-label="Fandom"></select>
-      <select id="sort" aria-label="Sort by">
-        <option value="updated">Sort: recently updated</option>
-        <option value="title">Sort: title A-Z</option>
-        <option value="author">Sort: author A-Z</option>
-        <option value="words">Sort: longest first</option>
-        <option value="words-asc">Sort: shortest first</option>
-        <option value="random">Sort: random</option>
-      </select>
-    </div>
-    <div class="row">
-      <button type="button" id="random">Open a random fic</button>
-      <button type="button" id="clear">Clear filters</button>
-    </div>
-    <div class="active-tags" id="active-tags"></div>
+  </details>
+  <div class="sortbar" id="sortbar">
+    <span class="label">Sort:</span>
+    <button type="button" class="pill" data-sort="updated" data-label="Updated" aria-pressed="true">Updated</button>
+    <button type="button" class="pill" data-sort="words" data-label="Words" aria-pressed="false">Words</button>
+    <button type="button" class="pill" data-sort="title" data-label="A–Z" aria-pressed="false">A&ndash;Z</button>
+    <button type="button" class="pill" data-sort="author" data-label="Author" aria-pressed="false">Author</button>
+    <button type="button" class="pill" id="random">Random</button>
   </div>
+  <div class="active-tags" id="active-tags"></div>
   <p class="count" id="count" aria-live="polite"></p>
   <ol class="works" id="works"></ol>
   <p class="empty" id="empty" hidden>No fics match these filters. Try removing a tag or clearing the filters.</p>
