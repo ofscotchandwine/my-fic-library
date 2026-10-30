@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Fic Library</title>
+<script>try{var t=localStorage.getItem("theme");if(t){document.documentElement.dataset.theme=t;}}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="site" href="index.html">My Fic Library</a>
+  <button type="button" id="theme-toggle">Light mode</button>
+</header>
+<main class="wrap">
+  <div class="controls">
+    <div class="row">
+      <input type="search" id="q" placeholder="Search titles, authors, tags, summaries" aria-label="Search">
+    </div>
+    <div class="row">
+      <select id="rating" aria-label="Rating"></select>
+      <select id="status" aria-label="Status"></select>
+      <select id="fandom" aria-label="Fandom"></select>
+      <select id="sort" aria-label="Sort by">
+        <option value="updated">Sort: recently updated</option>
+        <option value="title">Sort: title A-Z</option>
+        <option value="author">Sort: author A-Z</option>
+        <option value="words">Sort: longest first</option>
+        <option value="words-asc">Sort: shortest first</option>
+        <option value="random">Sort: random</option>
+      </select>
+    </div>
+    <div class="row">
+      <button type="button" id="random">Open a random fic</button>
+      <button type="button" id="clear">Clear filters</button>
+    </div>
+    <div class="active-tags" id="active-tags"></div>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <ol class="works" id="works"></ol>
+  <p class="empty" id="empty" hidden>No fics match these filters. Try removing a tag or clearing the filters.</p>
+  <button type="button" class="load-more" id="more" hidden>Show more</button>
+</main>
+<script src="data.js"></script>
+<script src="theme.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
