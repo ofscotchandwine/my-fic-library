@@ -52,6 +52,7 @@ button.pill { font-size: 0.82rem; padding: 0.15em 0.8em; border-radius: 999px; b
   padding: 0.6rem 1rem; background: var(--panel); border-bottom: 1px solid var(--border);
 }
 .topbar .site { font-weight: bold; text-decoration: none; margin-right: auto; }
+.topbar .grow { flex: 1; }
 .wrap { max-width: 52rem; margin: 0 auto; padding: 1rem; }
 
 .icon-btn {
@@ -66,12 +67,13 @@ a.pill { text-decoration: none; }
 a.pill:hover { color: var(--accent); border-color: var(--accent); }
 
 /* Library page: header */
-.hero { position: relative; text-align: center; padding: 2.4rem 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+.hero { position: relative; text-align: center; padding: 2.2rem 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
 .hero .corner { position: absolute; top: 0.8rem; right: 1rem; }
 .hero .corner-left { position: absolute; top: 0.95rem; left: 1rem; }
 .hero h1 {
   margin: 0; font-family: var(--read-font); font-weight: normal;
   font-size: clamp(1.5rem, 5vw, 2.4rem); letter-spacing: 0.18em; text-transform: uppercase;
+  line-height: 1.25; text-wrap: balance;
 }
 .hero h1 a { color: var(--text); text-decoration: none; }
 .hero .rule { width: min(20rem, 60%); height: 1px; margin: 0.9rem auto 0.7rem; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
@@ -152,13 +154,13 @@ a.pill:hover { color: var(--accent); border-color: var(--accent); }
 .chapter hr { border: 0; border-top: 1px solid var(--border); margin: 2rem auto; width: 40%; }
 
 @media (max-width: 600px) {
-  .wrap { padding: 0.7rem; }
-  .work { padding: 0.9rem 1rem; }
-  .hero { padding: 2.9rem 0.8rem 1.2rem; }
-  .hero h1 { letter-spacing: 0.1em; }
-  .hero .corner { top: 0.6rem; right: 0.6rem; }
-  .hero .corner-left { top: 0.95rem; left: 0.8rem; }
-  .sortbar { gap: 0.4rem; }
+  .topbar { padding: 0.5rem 1.25rem; }
+  .wrap { padding: 1rem max(1.25rem, env(safe-area-inset-right)) 1rem max(1.25rem, env(safe-area-inset-left)); }
+  .work { padding: 1rem 1.15rem; }
+  .hero { padding: 1.7rem 1.25rem 1.3rem; }
+  .hero h1 { font-size: clamp(1.35rem, 6.4vw, 1.85rem); letter-spacing: 0.14em; }
+  .hero .rule { width: 55%; margin: 0.85rem auto 0.7rem; }
+  .hero p { font-size: 0.9rem; line-height: 1.55; }
   .sortbar { gap: 0.3rem; }
   .sortbar .label { font-size: 0.8rem; }
   .sortbar button.pill { font-size: 0.78rem; padding: 0.2em 0.6em; }
