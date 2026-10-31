@@ -1,5 +1,4 @@
 
-
 (function () {
   var root = document.documentElement;
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -24,7 +23,19 @@
       label();
     });
   }
+  // Until you press the button, follow the phone/computer setting (and any change to it).
+  try {
+    var mq = window.matchMedia("(prefers-color-scheme: light)");
+    var follow = function () {
+      if (get("theme")) return;
+      root.dataset.theme = mq.matches ? "light" : "dark";
+      label();
+    };
+    if (mq.addEventListener) mq.addEventListener("change", follow);
+    else if (mq.addListener) mq.addListener(follow);
+  } catch (e) {}
   label();
+
   var fs = parseFloat(get("fs")) || 1;
   function applyFs() { root.style.setProperty("--fs", fs); }
   applyFs();

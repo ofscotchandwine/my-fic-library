@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Sync - My archive</title>
+<script>try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" type="image/png" href="favicon.png?v=1793415726">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1793415726">
+<link rel="stylesheet" href="style.css?v=1793415726">
+</head>
+<body data-page="sync">
+<header class="topbar">
+  <a class="site" href="index.html">← Home</a>
+  <a class="kudos-link" id="kudos-link" href="kudos.html">♥︎ Kudos list</a>
+  <button type="button" id="font-minus" aria-label="Smaller text">A-</button>
+  <button type="button" id="font-plus" aria-label="Larger text">A+</button>
+  <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme"></button>
+</header>
+<main class="wrap">
+  <h1 style="font-size:1.5rem;margin:0.5rem 0 1rem">Sync across devices</h1>
+  <p class="note">Your favorites, reading status and bookmarks are saved on the device you are using. To see them on your phone and your computer, connect them both below.</p>
+  <div class="card"><h2>Status</h2><p class="msg" id="sync-status"></p></div>
+  <div class="card" id="connect-box">
+    <h2>Connect GitHub (automatic)</h2>
+    <ol>
+      <li>Open <a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=My%20archive" target="_blank" rel="noopener noreferrer">this GitHub page</a> and sign in.</li>
+      <li>Leave only <b>gist</b> ticked, set Expiration to <b>No expiration</b>, and press Generate token.</li>
+      <li>Copy the token and paste it here. Do the same on each device.</li>
+    </ol>
+    <input type="password" id="token" placeholder="Paste token" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="GitHub token">
+    <div class="btns"><button type="button" id="connect">Connect</button></div>
+    <p class="msg" id="connect-msg"></p>
+    <p class="note">The token stays in this browser. Your list is kept in a private gist on your own GitHub account.</p>
+  </div>
+  <div class="card" id="connected-box" hidden>
+    <h2>Connected</h2>
+    <div class="btns"><button type="button" id="sync-now">Sync now</button><button type="button" id="disconnect">Disconnect</button></div>
+  </div>
+  <div class="card">
+    <h2>Or use a sync code</h2>
+    <p class="note">No account needed. Make a code on one device, paste it on the other.</p>
+    <div class="btns"><button type="button" id="make-code">Make code</button></div>
+    <textarea id="code-out" readonly hidden aria-label="Your sync code"></textarea>
+    <textarea id="code-in" placeholder="Paste a code from your other device" aria-label="Paste a sync code"></textarea>
+    <div class="btns"><button type="button" id="use-code">Use code</button></div>
+    <p class="msg" id="code-msg"></p>
+  </div>
+</main>
+<footer class="foot"><a href="sync.html">Sync across devices</a></footer>
+<script src="theme.js?v=1793415726"></script>
+<script src="state.js?v=1793415726"></script>
+<script src="cards.js?v=1793415726"></script>
+<script src="pages.js?v=1793415726"></script>
+</body>
+</html>
