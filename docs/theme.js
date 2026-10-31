@@ -36,7 +36,10 @@
   } catch (e) {}
   label();
 
-  var fs = parseFloat(get("fs")) || 1;
+  // phones start a little smaller on the reading page (A+ still works)
+  var phoneFic = false;
+  try { phoneFic = document.body.dataset.page === "fic" && window.matchMedia("(max-width: 600px)").matches; } catch (e) {}
+  var fs = parseFloat(get("fs")) || (phoneFic ? 0.9 : 1);
   function applyFs() { root.style.setProperty("--fs", fs); }
   applyFs();
   var minus = document.getElementById("font-minus"), plus = document.getElementById("font-plus");

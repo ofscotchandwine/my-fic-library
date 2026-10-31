@@ -150,6 +150,18 @@
       var max = Math.max.apply(null, Object.keys(rc).map(function (k) { return rc[k]; }).concat([1]));
       bars("b-ratings", Object.keys(names).map(function (k) { return [names[k], rc[k]]; }), max);
 
+      var fl = $("finished-list"); fl.textContent = "";
+      var fin = finished.map(function (f) { var r = S.get(f.slug) || {}; return { f: f, at: (r.t && r.t.status) || r.lr || 0 }; })
+        .sort(function (a, b) { return b.at - a.at; });
+      fin.forEach(function (it) {
+        var li = C.el("li");
+        var a = C.el("a", "ft", it.f.title); a.href = "fic/" + it.f.slug + ".html";
+        li.appendChild(a);
+        li.appendChild(C.el("span", "fm", "by " + it.f.author + (it.f.words ? " \u00b7 " + C.fmtWords(it.f.words) : "") + (it.at ? " \u00b7 finished " + C.fmtDate(it.at) : "")));
+        fl.appendChild(li);
+      });
+      $("finished-empty").hidden = fin.length > 0;
+
       var mine = ships(finished.concat(reading));
       $("read-ships-empty").hidden = mine.length > 0;
       bars("b-ships-read", mine, mine.length ? mine[0][1] : 1);
