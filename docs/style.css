@@ -53,13 +53,17 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 
 /* Top bar */
 .topbar {
-  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-  padding: 0.6rem 1rem; background: var(--panel); border-bottom: 1px solid var(--border);
+  position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;
+  padding: 0.5rem 1rem; min-height: 3.4rem; background: var(--panel); border-bottom: 1px solid var(--border);
 }
-.topbar .site { font-weight: bold; text-decoration: none; margin-right: auto; }
-.topbar .grow { flex: 1; }
-.kudos-link { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.04em; }
-.kudos-link:hover { color: var(--accent); }
+.tb-right { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; }
+.tb-left { display: none; }
+.tb-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; }
+.home-star { display: inline-flex; padding: 0.1rem 0.4rem; border-radius: 10px; }
+.home-star img { display: block; height: 2.3rem; width: auto; }
+.home-star:hover img, .star-link:hover img { filter: brightness(1.12); }
+.star-link { display: block; width: fit-content; margin: 0 auto 0.7rem; }
+.star-link .star { margin-bottom: 0; }
 .icon-btn {
   display: inline-flex; align-items: center; justify-content: center;
   width: 2.2rem; height: 2.2rem; padding: 0; border: 0; border-radius: 0;
@@ -80,15 +84,13 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .hero h1 a { color: var(--text); text-decoration: none; }
 .hero p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.9rem; }
 .tabs {
-  display: flex; gap: 0.2rem; overflow-x: auto; scrollbar-width: none;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.2rem;
   max-width: 52rem; margin: 0.6rem auto 0; padding: 0 1rem;
-  border-bottom: 1px solid var(--border); scroll-snap-type: x proximity;
+  border-bottom: 1px solid var(--border);
 }
-.tabs::-webkit-scrollbar { display: none; }
 .tabs a {
   flex: 0 0 auto; padding: 0.55rem 0.85rem; color: var(--muted); text-decoration: none;
   font-size: 0.92rem; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px;
-  scroll-snap-align: start;
 }
 .tabs a:hover { color: var(--text); }
 .tabs a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
@@ -213,7 +215,6 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .chitem.current { border-color: var(--accent); background: var(--field); }
 
 .chapnav { display: flex; gap: 0.5rem; align-items: center; justify-content: space-between; margin: 1.2rem 0; flex-wrap: wrap; }
-.chapnav .pos { color: var(--muted); font-size: 0.9rem; }
 .chapter { line-height: 1.65; }
 .chapter h2 { text-align: center; color: var(--accent); font-size: 1.3rem; margin: 1.5rem 0 1rem; }
 .chapter p { margin: 0 0 1em; }
@@ -257,9 +258,15 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .foot a { color: var(--muted); }
 
 @media (max-width: 600px) {
-  .topbar { padding: 0.5rem 1.25rem; }
+  .topbar { padding: 0.65rem max(1.25rem, env(safe-area-inset-right)) 0.65rem max(1.25rem, env(safe-area-inset-left)); min-height: 4.2rem; }
+  .home-star img { height: 2.8rem; }
+  .tb-right { gap: 0.4rem; }
+  .tb-right button { font-size: 1rem; padding: 0.5em 0.75em; }
+  .tb-right .icon-btn { width: 2.6rem; height: 2.6rem; padding: 0; }
+  .tb-right .icon-btn svg { width: 22px; height: 22px; }
   .wrap { padding: 1rem max(1.25rem, env(safe-area-inset-right)) 1rem max(1.25rem, env(safe-area-inset-left)); }
-  .tabs { padding: 0 0.6rem; }
+  .tabs { padding: 0 max(1.25rem, env(safe-area-inset-left)); }
+  .tabs a { padding: 0.5rem 0.6rem; font-size: 0.88rem; }
   .work { padding: 1rem 1.15rem; }
   .work .mark { top: 1rem; right: 1.1rem; }
   .hero { padding: 1.3rem 1.25rem 0.8rem; }
@@ -275,3 +282,10 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
   .bars .bt { grid-column: 1 / -1; grid-row: 2; }
 }
 .readbar .seg { margin-left: auto; }
+
+.work .extra .rm {
+  margin-left: auto; width: 2rem; height: 2rem; padding: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center; color: var(--muted); background: transparent;
+}
+.work .extra .rm:hover { color: var(--accent); border-color: var(--accent); }
+.work .extra .rm svg { display: block; }

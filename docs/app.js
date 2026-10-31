@@ -106,25 +106,25 @@
     var recs = S ? S.all() : {}, map = C.bySlug(), list = [];
     Object.keys(recs).forEach(function (slug) {
       var r = recs[slug];
-      if (map[slug] && r.status === "reading" && r.lr) list.push({ f: map[slug], r: r });
+      if (map[slug] && r.lr && r.status !== "unread") list.push({ f: map[slug], r: r });
     });
     list.sort(function (a, b) { return b.r.lr - a.r.lr; });
     if (!list.length) { box.hidden = true; return; }
-    var cur = list[0], pr = C.progress(cur.f, cur.r);
+    var cur = list[0];   // the fic you opened last
     var text = C.el("div", "c-text");
     text.appendChild(C.el("div", "c-label", "Continue reading"));
     text.appendChild(C.el("div", "c-title", cur.f.title));
-    var where = "Chapter " + (Math.min((cur.r.ch || 0) + 1, cur.f.nch)) + " of " + cur.f.nch + " · last read " + C.fmtDate(cur.r.lr);
+    var where = cur.r.status === "finished"
+      ? "Finished \u00b7 last read " + C.fmtDate(cur.r.lr)
+      : "Chapter " + (Math.min((cur.r.ch || 0) + 1, cur.f.nch)) + " of " + cur.f.nch + " \u00b7 last read " + C.fmtDate(cur.r.lr);
     text.appendChild(C.el("div", "c-where", where));
     box.appendChild(text);
-    var go = C.el("a", "c-go", "Continue →");
+    var go = C.el("a", "c-go", cur.r.status === "finished" ? "Open \u2192" : "Continue \u2192");
     go.href = "fic/" + cur.f.slug + ".html";
     box.appendChild(go);
-    if (list.length > 1) {
-      var all = C.el("a", "c-all", "All " + list.length + " in progress");
-      all.href = "reading.html";
-      box.appendChild(all);
-    }
+    var all = C.el("a", "c-all", "Currently Reading");
+    all.href = "reading.html";
+    box.appendChild(all);
     box.hidden = false;
   }
 

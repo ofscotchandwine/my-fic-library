@@ -41,6 +41,13 @@
             bar.style.width = Math.round(C.progress(f, r).frac * 100) + "%";
             m.appendChild(bar); g.appendChild(m);
             ex.appendChild(g);
+            var rm = C.el("button", "rm");
+            rm.type = "button";
+            rm.title = "Remove from Currently Reading";
+            rm.setAttribute("aria-label", "Remove from Currently Reading");
+            rm.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>';
+            rm.addEventListener("click", function () { S.set(f.slug, { status: "unread" }); draw(); });
+            ex.appendChild(rm);
             li.appendChild(ex);
           }
         });
