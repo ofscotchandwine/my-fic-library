@@ -49,12 +49,7 @@
     Object.keys(data.fics).forEach(function (k) { if (data.fics[k].kudos) n++; });
     return n;
   }
-  function updateLink() {
-    var link = document.getElementById("kudos-link");
-    if (!link) return;
-    var n = kudosCount();
-    link.textContent = "♥︎ Kudos list" + (n ? " (" + n + ")" : "");
-  }
+  function updateLink() { /* the top-bar Kudos list link was removed */ }
 
   /* ---------- one-time import of the older, simpler storage keys ---------- */
   function migrate() {

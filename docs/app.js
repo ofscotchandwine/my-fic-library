@@ -8,7 +8,7 @@
   var C = window.Cards, S = window.State;
   // "Default" is: date added, newest first
   var DEFAULT_DIR = { "default": "desc", added: "desc", updated: "desc", words: "desc", title: "asc", author: "asc" };
-  var st = { q: "", ratings: [], statuses: [], reads: [], fandom: "", tag: "", sort: "default", dir: "desc", shown: PAGE };
+  var st = { q: "", ratings: [], statuses: [], reads: [], fandom: "", tag: "", author: "", sort: "default", dir: "desc", shown: PAGE };
 
   function $(id) { return document.getElementById(id); }
   function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (e) { return null; } }
@@ -19,8 +19,13 @@
     if (saved) Object.keys(st).forEach(function (k) { if (k !== "shown" && saved[k] !== undefined) st[k] = saved[k]; });
   } catch (e) {}
   var param = /[?&]tag=([^&]*)/.exec(location.search);
-  if (param) {
-    try { st.tag = decodeURIComponent(param[1].replace(/\+/g, " ")); } catch (e) {}
+  var aparam = /[?&]author=([^&]*)/.exec(location.search);
+  if (param || aparam) {
+    st.tag = ""; st.author = "";
+    try {
+      if (param) st.tag = decodeURIComponent(param[1].replace(/\+/g, " "));
+      if (aparam) st.author = decodeURIComponent(aparam[1].replace(/\+/g, " "));
+    } catch (e) {}
     st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.q = "";
     try { history.replaceState(null, "", location.pathname); } catch (e) {}
   }
@@ -77,6 +82,7 @@
     if (st.statuses.length && st.statuses.indexOf(f.status) === -1) return false;
     if (st.reads.length && st.reads.indexOf(readStatus(f)) === -1) return false;
     if (st.fandom && f.fandoms.indexOf(st.fandom) === -1) return false;
+    if (st.author && f.author.split(/,\s*/).indexOf(st.author) === -1) return false;
     if (st.tag) {
       var t = st.tag;
       if (f.tags.indexOf(t) === -1 && f.relationships.indexOf(t) === -1 && f.characters.indexOf(t) === -1 && f.fandoms.indexOf(t) === -1) return false;
@@ -122,9 +128,6 @@
     var go = C.el("a", "c-go", cur.r.status === "finished" ? "Open \u2192" : "Continue \u2192");
     go.href = "fic/" + cur.f.slug + ".html";
     box.appendChild(go);
-    var all = C.el("a", "c-all", "Currently Reading");
-    all.href = "reading.html";
-    box.appendChild(all);
     box.hidden = false;
   }
 
@@ -162,6 +165,13 @@
 
     var box = $("active-tags");
     box.textContent = "";
+    if (st.author) {
+      var ab = C.el("button", "pill", "by " + st.author + "  \u00d7");
+      ab.type = "button";
+      ab.title = "Remove this author filter";
+      ab.addEventListener("click", function () { st.author = ""; st.shown = PAGE; render(); });
+      box.appendChild(ab);
+    }
     if (st.tag) {
       var b = C.el("button", "pill", st.tag + "  ×");
       b.type = "button";
@@ -186,7 +196,7 @@
   });
   $("more").addEventListener("click", function () { st.shown += PAGE; render(); });
   $("clear").addEventListener("click", function () {
-    st.q = ""; st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.tag = ""; st.shown = PAGE;
+    st.q = ""; st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.tag = ""; st.author = ""; st.shown = PAGE;
     render();
   });
   $("random").addEventListener("click", function () {

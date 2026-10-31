@@ -58,7 +58,15 @@
     a.href = "fic/" + f.slug + ".html";
     h3.appendChild(a);
     li.appendChild(h3);
-    li.appendChild(el("div", "by", "by " + f.author));
+    var by = el("div", "by", "by ");
+    f.author.split(/,\s*/).forEach(function (name, i) {
+      if (i) by.appendChild(document.createTextNode(", "));
+      var al = el("a", "author", name);
+      al.href = "index.html?author=" + encodeURIComponent(name);
+      al.title = "All fics by " + name;
+      by.appendChild(al);
+    });
+    li.appendChild(by);
     if (opts.showFandom && f.fandoms.length) li.appendChild(el("div", "fandom", f.fandoms.join(", ")));
 
     var top = el("ul", "pills");
