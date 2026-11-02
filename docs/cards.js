@@ -67,6 +67,14 @@
       by.appendChild(al);
     });
     li.appendChild(by);
+    (f.series || []).forEach(function (s) {
+      var sl = el("div", "by series", s.part ? "Part " + s.part + " of " : "Series: ");
+      var sa = el("a", "author", s.name);
+      sa.href = "index.html?series=" + encodeURIComponent(s.name);
+      sa.title = "All fics in " + s.name;
+      sl.appendChild(sa);
+      li.appendChild(sl);
+    });
     if (opts.showFandom && f.fandoms.length) li.appendChild(el("div", "fandom", f.fandoms.join(", ")));
 
     var top = el("ul", "pills");

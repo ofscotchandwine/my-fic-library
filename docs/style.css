@@ -289,7 +289,6 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
   .bars li { grid-template-columns: 1fr 3rem; }
   .bars .bt { grid-column: 1 / -1; grid-row: 2; }
 }
-.readbar .seg { margin-left: auto; }
 
 .work .extra .rm {
   margin-left: auto; width: 2rem; height: 2rem; padding: 0; border-radius: 50%;
@@ -297,3 +296,14 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 }
 .work .extra .rm:hover { color: var(--accent); border-color: var(--accent); }
 .work .extra .rm svg { display: block; }
+
+.kudos-box .seg .on, .kudos-box .seg button { font-size: 0.9rem; padding: 0.7em 1.1em; }
+
+.chapbar { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin: 2rem 0 1rem; }
+.chapbar .kudos-box { margin: 0 auto; flex: 0 1 auto; gap: 0.5rem; }
+.chapbar .kudos-btn { font-size: 0.92rem; padding: 0.55em 1.1em; }
+.chapbar .seg button { font-size: 0.85rem; padding: 0.55em 0.95em; }
+@media (max-width: 760px) {
+  .chapbar { flex-wrap: wrap; }
+  .chapbar .kudos-box { order: 3; flex: 1 0 100%; margin-top: 0.3rem; }
+}

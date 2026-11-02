@@ -8,7 +8,7 @@
   var C = window.Cards, S = window.State;
   // "Default" is: date added, newest first
   var DEFAULT_DIR = { "default": "desc", added: "desc", updated: "desc", words: "desc", title: "asc", author: "asc" };
-  var st = { q: "", ratings: [], statuses: [], reads: [], fandom: "", tag: "", author: "", sort: "default", dir: "desc", shown: PAGE };
+  var st = { q: "", ratings: [], statuses: [], reads: [], fandom: "", tag: "", author: "", series: "", sort: "default", dir: "desc", shown: PAGE };
 
   function $(id) { return document.getElementById(id); }
   function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (e) { return null; } }
@@ -20,11 +20,13 @@
   } catch (e) {}
   var param = /[?&]tag=([^&]*)/.exec(location.search);
   var aparam = /[?&]author=([^&]*)/.exec(location.search);
-  if (param || aparam) {
-    st.tag = ""; st.author = "";
+  var sparam = /[?&]series=([^&]*)/.exec(location.search);
+  if (param || aparam || sparam) {
+    st.tag = ""; st.author = ""; st.series = "";
     try {
       if (param) st.tag = decodeURIComponent(param[1].replace(/\+/g, " "));
       if (aparam) st.author = decodeURIComponent(aparam[1].replace(/\+/g, " "));
+      if (sparam) st.series = decodeURIComponent(sparam[1].replace(/\+/g, " "));
     } catch (e) {}
     st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.q = "";
     try { history.replaceState(null, "", location.pathname); } catch (e) {}
@@ -32,7 +34,7 @@
 
   FICS.forEach(function (f) {
     f._hay = [f.title, f.author, f.fandoms.join(" "), f.relationships.join(" "),
-              f.characters.join(" "), f.tags.join(" "), f.summary].join(" ").toLowerCase();
+              f.characters.join(" "), f.tags.join(" "), f.summary, (f.series || []).map(function (s) { return s.name; }).join(" ")].join(" ").toLowerCase();
   });
 
   /* ---------- filter panel ---------- */
@@ -83,6 +85,7 @@
     if (st.reads.length && st.reads.indexOf(readStatus(f)) === -1) return false;
     if (st.fandom && f.fandoms.indexOf(st.fandom) === -1) return false;
     if (st.author && f.author.split(/,\s*/).indexOf(st.author) === -1) return false;
+    if (st.series && !(f.series || []).some(function (s) { return s.name === st.series; })) return false;
     if (st.tag) {
       var t = st.tag;
       if (f.tags.indexOf(t) === -1 && f.relationships.indexOf(t) === -1 && f.characters.indexOf(t) === -1 && f.fandoms.indexOf(t) === -1) return false;
@@ -101,6 +104,11 @@
     else if (s === "updated") cmp = function (a, b) { return (a.updated || "").localeCompare(b.updated || ""); };
     else cmp = function (a, b) { return (a.added || "").localeCompare(b.added || "") || a.title.localeCompare(b.title); };
     var dir = s === "default" ? "desc" : st.dir;
+    if (st.series && s === "default") {   // inside a series: in reading order (Part 1, 2, 3...)
+      var part = function (f) { var m = (f.series || []).filter(function (x) { return x.name === st.series; })[0]; return m ? m.part : 0; };
+      out.sort(function (a, b) { return part(a) - part(b) || a.title.localeCompare(b.title); });
+      return out;
+    }
     out.sort(function (a, b) { return (dir === "desc" ? -1 : 1) * cmp(a, b); });
     return out;
   }
@@ -165,6 +173,13 @@
 
     var box = $("active-tags");
     box.textContent = "";
+    if (st.series) {
+      var sb = C.el("button", "pill", "Series: " + st.series + "  \u00d7");
+      sb.type = "button";
+      sb.title = "Remove this series filter";
+      sb.addEventListener("click", function () { st.series = ""; st.shown = PAGE; render(); });
+      box.appendChild(sb);
+    }
     if (st.author) {
       var ab = C.el("button", "pill", "by " + st.author + "  \u00d7");
       ab.type = "button";
@@ -196,7 +211,7 @@
   });
   $("more").addEventListener("click", function () { st.shown += PAGE; render(); });
   $("clear").addEventListener("click", function () {
-    st.q = ""; st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.tag = ""; st.author = ""; st.shown = PAGE;
+    st.q = ""; st.ratings = []; st.statuses = []; st.reads = []; st.fandom = ""; st.tag = ""; st.author = ""; st.series = ""; st.shown = PAGE;
     render();
   });
   $("random").addEventListener("click", function () {

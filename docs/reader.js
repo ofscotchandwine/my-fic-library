@@ -63,6 +63,7 @@
     if (i < 0 || i >= N) return;
     current = i;
     sections.forEach(function (s, n) { s.hidden = n !== i; });
+    var front = $("front"); if (front) front.hidden = i !== 0;   // fic summary + notes: first chapter only
     prevs.forEach(function (b) { b.disabled = i === 0; });
     nexts.forEach(function (b) { b.disabled = i === N - 1; });
     poss.forEach(function (p) { p.textContent = "Chapter " + (i + 1) + " of " + N; });
