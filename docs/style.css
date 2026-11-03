@@ -5,6 +5,7 @@
   --bar: #ee8e8e; --track: #484848;
   --c-general: #7cc58b; --c-teen: #e0c75e; --c-mature: #e79d52;
   --c-explicit: #e66a6a; --c-notrated: #b0b0b0; --c-complete: #7cc58b;
+  --c-progress: #f2a24a; --opened: #91a578; --kudos: #af93d0;
   --ui-font: "Lucida Grande", "Lucida Sans Unicode", "GNU Unifont", Verdana, Helvetica, sans-serif;
   --read-font: Georgia, "Times New Roman", serif;
   --fs: 1;
@@ -15,6 +16,7 @@
   --bar: #990000; --track: #e6e6e6;
   --c-general: #2f7a42; --c-teen: #8a7414; --c-mature: #b35f12;
   --c-explicit: #a82424; --c-notrated: #666666; --c-complete: #2f7a42;
+  --c-progress: #c46a00; --opened: #91a578; --kudos: #af93d0;
 }
 * { box-sizing: border-box; }
 html { font-size: calc(100% * var(--fs)); }
@@ -50,11 +52,12 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .pill.r-explicit { color: var(--c-explicit); border-color: var(--c-explicit); }
 .pill.r-notrated { color: var(--c-notrated); border-color: var(--c-notrated); }
 .pill.complete { color: var(--c-complete); border-color: var(--c-complete); }
+.pill.progress { color: var(--c-progress); border-color: var(--c-progress); }
 
 /* Top bar */
 .topbar {
   position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;
-  padding: 0.5rem 1rem; min-height: 3.4rem; background: var(--panel); border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem; min-height: 3.4rem; background: transparent; border-bottom: 0;
 }
 .tb-right { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; }
 .tb-left { display: none; }
@@ -148,7 +151,8 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .work h3 a:focus-visible { outline: none; }
 .work h3 a:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 2px; }
 .work .mark { position: absolute; top: 1.1rem; right: 1.2rem; display: flex; gap: 0.45rem; font-size: 0.95rem; line-height: 1.4; pointer-events: none; z-index: 2; }
-.mark .heart { color: var(--accent); }
+.mark .heart { color: var(--kudos); }
+.work.opened h3 a { color: var(--opened); }
 .mark .tick { color: var(--c-complete); }
 .work .by { color: var(--muted); margin: 0.1rem 0 0.2rem; }
 .work .by a.author, .byline a.author { position: relative; z-index: 2; color: inherit; text-decoration: none; border-bottom: 1px dotted var(--muted); }
@@ -307,3 +311,24 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
   .chapbar { flex-wrap: wrap; }
   .chapbar .kudos-box { order: 3; flex: 1 0 100%; margin-top: 0.3rem; }
 }
+
+/* ---- bottom controls: one family (same height, same pill shape, color only when "on") ---- */
+.chapbar button, .chapbar .seg {
+  box-sizing: border-box; height: 2.5rem; border-radius: 999px; border: 1px solid var(--border);
+  background: transparent; color: var(--text); font-size: 0.9rem; line-height: 1;
+}
+.chapbar > button, .chapbar .kudos-btn { padding: 0 1.15em; display: inline-flex; align-items: center; justify-content: center; gap: 0.4em; white-space: nowrap; }
+.chapbar .kudos-box { gap: 0.5rem; }
+.chapbar button:hover:not(:disabled) { border-color: var(--text); }
+.chapbar button:disabled { opacity: 0.35; }
+.chapbar .seg { display: inline-flex; overflow: hidden; padding: 0; }
+.chapbar .seg button { height: 100%; border: 0; border-radius: 0; padding: 0 1em; color: var(--muted); }
+.chapbar .seg button + button { border-left: 1px solid var(--border); }
+.chapbar .seg button:hover:not(:disabled) { color: var(--text); }
+.chapbar .hrt { color: var(--kudos); }
+/* "on" states: a colored outline and a soft tint */
+.chapbar #markread.on { color: var(--opened); border-color: var(--opened); background: color-mix(in srgb, var(--opened) 18%, transparent); }
+.chapbar #kudos-btn.on { color: var(--kudos); border-color: var(--kudos); background: color-mix(in srgb, var(--kudos) 18%, transparent); }
+.chapbar .seg button[aria-pressed="true"] { color: var(--text); background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.chapbar .seg button[data-status="reading"][aria-pressed="true"] { color: var(--c-progress); background: color-mix(in srgb, var(--c-progress) 20%, transparent); }
+.chapbar .seg button[data-status="finished"][aria-pressed="true"] { color: var(--opened); background: color-mix(in srgb, var(--opened) 20%, transparent); }

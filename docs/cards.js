@@ -44,7 +44,7 @@
     opts = opts || {};
     var rec = (window.State && window.State.get(f.slug)) || {};
     var hasHeart = !!rec.kudos, hasTick = rec.status === "finished";
-    var li = el("li", "work" + (hasHeart || hasTick ? " has-mark" : ""));
+    var li = el("li", "work" + (hasHeart || hasTick ? " has-mark" : "") + (rec.lr ? " opened" : ""));
 
     if (hasHeart || hasTick) {
       var mark = el("div", "mark");
@@ -81,7 +81,7 @@
     function add(list, node) { var i = el("li"); i.appendChild(node); list.appendChild(i); }
     if (f.relationships.length) add(top, el("span", "pill rel", f.relationships[0]));
     if (f.rating) add(top, el("span", "pill " + ratingClass(f.rating), f.rating));
-    if (f.status && f.status !== "Unknown") add(top, el("span", "pill" + (f.status === "Complete" ? " complete" : ""), f.status));
+    if (f.status && f.status !== "Unknown") add(top, el("span", "pill" + (f.status === "Complete" ? " complete" : f.status === "In progress" ? " progress" : ""), f.status));
     if (f.words) {
       var wp = el("span", "pill", fmtWords(f.words));
       var tip = [];
