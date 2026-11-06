@@ -6,13 +6,13 @@
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>My archive</title>
 <script>try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.dataset.theme=t;}catch(e){}</script>
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=1794003476">
-<link rel="shortcut icon" href="favicon.ico?v=1794003476">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=1794004948">
+<link rel="shortcut icon" href="favicon.ico?v=1794004948">
 <meta name="apple-mobile-web-app-title" content="My archive">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1794003476">
-<link rel="stylesheet" href="style.css?v=1794003476">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1794004948">
+<link rel="stylesheet" href="style.css?v=1794004948">
 </head>
-<body data-page="library">
+<body data-page="home">
 <header class="topbar">
   <div class="tb-left"></div>
   <div class="tb-center"></div>
@@ -23,47 +23,22 @@
   </div>
 </header>
 <header class="hero">
-  <img class="star" src="star.png?v=1794003476" alt="">
+  <img class="star" src="star.png?v=1794004948" alt="">
   <h1><a href="index.html">My archive</a></h1>
   <p>525 fics archived</p>
   <p>Last updated November 6, 2026</p>
 </header>
-<nav class="tabs" aria-label="Sections"><a href="index.html" aria-current="page">The Library</a><a href="reading.html">Currently Reading</a><a href="kudos.html">My Favorites</a><a href="history.html">Reading History</a><a href="stats.html">Statistics</a></nav>
+<nav class="tabs" aria-label="Sections"><a href="index.html" aria-current="page">Home</a><a href="library.html">The Library</a><a href="reading.html">Currently Reading</a><a href="kudos.html">My Favorites</a><a href="history.html">Reading History</a><a href="stats.html">Statistics</a></nav>
 <main class="wrap">
   <div class="continue" id="continue" hidden></div>
   <div id="shelves" hidden></div>
-  <div class="searchrow">
-    <button type="button" id="filter-toggle" aria-expanded="false" aria-controls="fpanel">Filter</button>
-    <input type="search" id="q" placeholder="Search titles, authors, tags" aria-label="Search">
-  </div>
-  <div class="fpanel" id="fpanel" hidden>
-    <div class="fgroup" id="f-rating"><span class="flabel">Rating</span></div>
-    <div class="fgroup" id="f-status"><span class="flabel">Status</span></div>
-    <div class="fgroup" id="f-read"><span class="flabel">Reading</span></div>
-    <div class="fgroup" id="f-fandom-row"><span class="flabel">Fandom</span><select id="fandom" aria-label="Fandom"></select></div>
-    <button type="button" class="fclear" id="clear">Clear filters</button>
-  </div>
-  <div class="sortbar" id="sortbar">
-    <span class="label">Sort:</span>
-    <button type="button" class="pill" data-sort="default" data-label="Default" aria-pressed="true">Default</button>
-    <button type="button" class="pill" data-sort="added" data-label="Added" aria-pressed="false">Added</button>
-    <button type="button" class="pill" data-sort="updated" data-label="Updated" aria-pressed="false">Updated</button>
-    <button type="button" class="pill" data-sort="words" data-label="Words" aria-pressed="false">Words</button>
-    <button type="button" class="pill" data-sort="title" data-label="A–Z" aria-pressed="false">A&ndash;Z</button>
-    <button type="button" class="pill" data-sort="author" data-label="Author" aria-pressed="false">Author</button>
-    <button type="button" class="pill" id="random">Lucky? ✨</button>
-  </div>
-  <div class="active-tags" id="active-tags"></div>
-  <p class="count" id="count" aria-live="polite"></p>
-  <ol class="works intro" id="works"></ol>
-  <p class="empty" id="empty" hidden>No fics match these filters. Try removing a tag or clearing the filters.</p>
-  <button type="button" class="load-more" id="more" hidden>Show more</button>
+  <p class="empty" id="home-empty" hidden>Open a fic from The Library and it will show up here.</p>
 </main>
 <footer class="foot"><a href="sync.html">Sync across devices</a></footer>
-<script src="data.js?v=1794003476"></script>
-<script src="theme.js?v=1794003476"></script>
-<script src="state.js?v=1794003476"></script>
-<script src="cards.js?v=1794003476"></script>
-<script src="app.js?v=1794003476"></script>
+<script src="data.js?v=1794004948"></script>
+<script src="theme.js?v=1794004948"></script>
+<script src="state.js?v=1794004948"></script>
+<script src="cards.js?v=1794004948"></script>
+<script src="home.js?v=1794004948"></script>
 </body>
 </html>

@@ -112,6 +112,10 @@
       drawAll();
     });
   });
+  $("totop").addEventListener("click", function () {
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
+  });
   $("kudos-btn").addEventListener("click", function () {
     var b = this;
     S.set(slug, rec().kudos ? { kudos: 0 } : { kudos: Date.now(), ti: b.dataset.title, au: b.dataset.author, url: b.dataset.url });

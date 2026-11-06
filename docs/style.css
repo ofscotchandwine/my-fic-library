@@ -308,14 +308,11 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 
 .kudos-box .seg .on, .kudos-box .seg button { font-size: 0.9rem; padding: 0.7em 1.1em; }
 
-.chapbar { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin: 2rem 0 1rem; }
+.chapbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin: 2rem 0 1rem; }
 .chapbar .kudos-box { margin: 0 auto; flex: 0 1 auto; gap: 0.5rem; }
 .chapbar .kudos-btn { font-size: 0.92rem; padding: 0.55em 1.1em; }
 .chapbar .seg button { font-size: 0.85rem; padding: 0.55em 0.95em; }
-@media (max-width: 760px) {
-  .chapbar { flex-wrap: wrap; }
-  .chapbar .kudos-box { order: 3; flex: 1 0 100%; margin-top: 0.3rem; }
-}
+.chapbar .kudos-box { order: 3; flex: 1 0 100%; margin-top: 0.3rem; }
 
 /* ---- bottom controls: one family (same height, same pill shape, color only when "on") ---- */
 .chapbar button, .chapbar .seg {
@@ -331,6 +328,8 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
 .chapbar .seg button + button { border-left: 1px solid var(--border); }
 .chapbar .seg button:hover:not(:disabled) { color: var(--text); }
 .chapbar .hrt { color: var(--kudos); }
+.chapbar #totop { color: var(--muted); }
+.chapbar #totop:hover:not(:disabled) { color: var(--text); }
 /* "on" states: a colored outline and a soft tint */
 .chapbar #markread.on { color: var(--opened); border-color: var(--opened); background: color-mix(in srgb, var(--opened) 18%, transparent); }
 .chapbar #kudos-btn.on { color: var(--kudos); border-color: var(--kudos); background: color-mix(in srgb, var(--kudos) 18%, transparent); }
@@ -382,4 +381,12 @@ button.pill[aria-pressed="true"] { color: var(--text); border-color: var(--accen
   .sortbar > * { flex: 0 0 auto; }
   .sortbar #random { margin-left: 0.4rem; }
   .mini { flex-basis: 10.5rem; }
+}
+
+/* wide screens: Previous / controls / Next all on one line (the row is a little wider than the text) */
+@media (min-width: 940px) {
+  .chapbar { flex-wrap: nowrap; margin-left: -2.4rem; margin-right: -2.4rem; gap: 0.5rem; }
+  .chapbar .kudos-box { order: 0; flex: 0 1 auto; margin: 0 auto; gap: 0.4rem; }
+  .chapbar > button, .chapbar .kudos-btn { padding: 0 1em; }
+  .chapbar .seg button { padding: 0 0.85em; }
 }

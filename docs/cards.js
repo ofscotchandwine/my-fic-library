@@ -62,7 +62,7 @@
     f.author.split(/,\s*/).forEach(function (name, i) {
       if (i) by.appendChild(document.createTextNode(", "));
       var al = el("a", "author", name);
-      al.href = "index.html?author=" + encodeURIComponent(name);
+      al.href = "library.html?author=" + encodeURIComponent(name);
       al.title = "All fics by " + name;
       by.appendChild(al);
     });
@@ -70,7 +70,7 @@
     (f.series || []).forEach(function (s) {
       var sl = el("div", "by series", s.part ? "Part " + s.part + " of " : "Series: ");
       var sa = el("a", "author", s.name);
-      sa.href = "index.html?series=" + encodeURIComponent(s.name);
+      sa.href = "library.html?series=" + encodeURIComponent(s.name);
       sa.title = "All fics in " + s.name;
       sl.appendChild(sa);
       li.appendChild(sl);
